@@ -37,7 +37,7 @@ def main():
         if all(row[str_key] == str_value for str_key, str_value in strs.items()):
             print(row['name'])
             return
-    print("No match found!")
+    print("No match")
 
     return
 
