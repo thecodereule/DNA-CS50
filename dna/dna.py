@@ -18,21 +18,26 @@ def main():
       #  for row in reader:
        #     database.append(row)
 
-    strs = list(database_df.columns[1:])
 
-    print(strs)
+
     # TODO: Read DNA sequence file into a variable
     sequences = sys.argv[2]
     sequencefile = ''
-
+    sequenced_list = list()
     with open(sequences, 'r') as file:
         sequencefile = file.read().strip()
     # TODO: Find longest match of each STR in DNA sequence
-    for element in strs:
-        # should return a value into a dict with key "element"
-        longest_match(sequencefile, element)
+    strs = {key: longest_match(sequencefile, key) for key in database_df.columns[1:]}
+    print(strs)
+
+    print("------------------------------")
 
     # TODO: Check database for matching profiles
+    for index, row in database_df.iterrows():
+        if all(row[str_key] == str_value for str_key, str_value in strs.items()):
+            print(row['name'])
+            return
+    print("No match found!")
 
     return
 
